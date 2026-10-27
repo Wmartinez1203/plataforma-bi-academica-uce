@@ -160,25 +160,25 @@ source venv/bin/activate
 pip install -r requirements.txt
 4. Ejecutar el Pipeline ETL y Auditoría de Calidad
 python etl_pipeline.py
-Valida automáticamente los 3 controles de calidad y genera el Data Mart en data/processed/[cite: 17].
+Valida automáticamente los 3 controles de calidad y genera el Data Mart en data/processed/
 
 5. Iniciar la Plataforma Visual (Dashboard)
 streamlit run dashboard_pro.py
-Se abrirá automáticamente en tu navegador web en http://localhost:8501 con vistas Ejecutiva, Diagnóstico y Auditoría de Capacidad[cite: 17].
+Se abrirá automáticamente en tu navegador web en http://localhost:8501 con vistas Ejecutiva, Diagnóstico y Auditoría de Capacidad
 
 🔒 Gobierno de Datos y Seguridad (RBAC)
-Perfil Directivo (Decanato / Dirección): Acceso a métricas macro agregadas, tendencias y auditoría de sobrecupos con identificadores disociados mediante hash unidireccional SHA-256[cite: 17].
+Perfil Directivo (Decanato / Dirección): Acceso a métricas macro agregadas, tendencias y auditoría de sobrecupos con identificadores disociados mediante hash unidireccional SHA-256
 
-Perfil Operativo (Bienestar Estudiantil / Tutores): Acceso a la vista de diagnóstico y matriz de alerta temprana (P1 < 7.00 o Asistencia < 75%) para asignación de tutorías bajo acuerdos de confidencialidad y registro en logs de auditoría[cite: 17].
+Perfil Operativo (Bienestar Estudiantil / Tutores): Acceso a la vista de diagnóstico y matriz de alerta temprana (P1 < 7.00 o Asistencia < 75%) para asignación de tutorías bajo acuerdos de confidencialidad y registro en logs de auditoría
 
-Perfil Docente: Delimitado estrictamente al seguimiento de notas y asistencia de los paralelos bajo su responsabilidad directa[cite: 17].
+Perfil Docente: Delimitado estrictamente al seguimiento de notas y asistencia de los paralelos bajo su responsabilidad directa
 
 🔄 Protocolo de Actualización Incremental
-Para incorporar futuros semestres (ej. 2026-2) sin reconstrucción manual[cite: 17]:
+Para incorporar futuros semestres (ej. 2026-2) sin reconstrucción manual
 
-Depositar los archivos CSV actualizados en data/raw/[cite: 17].
+Depositar los archivos CSV actualizados en data/raw/
 
-Ejecutar python etl_pipeline.py[cite: 17].
+Ejecutar python etl_pipeline.py
 
 El pipeline detecta el nuevo ciclo lectivo, ejecuta los controles de consistencia y regenera el Data Mart[cite: 17].
 
