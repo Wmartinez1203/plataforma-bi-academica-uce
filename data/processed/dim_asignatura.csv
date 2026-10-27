@@ -1,0 +1,51 @@
+asignatura_id,codigo,nombre,semestre,area,creditos,tipo
+A001,ISI101,Análisis Matemático I,1,Matemáticas,3,Básica
+A002,ISI102,Fundamentos de Programación,1,Programación,4,Básica
+A003,ISI103,Introducción a Sistemas de Información,1,Gestión y Software,4,Básica
+A004,ISI104,Álgebra Lineal,1,Matemáticas,4,Básica
+A005,ISI105,Comunicación Técnica,1,Gestión y Software,3,Básica
+A006,ISI206,Análisis Matemático II,2,Matemáticas,5,Básica
+A007,ISI207,Programación I,2,Programación,4,Básica
+A008,ISI208,Matemática Discreta,2,Matemáticas,3,Básica
+A009,ISI209,Fundamentos de Bases de Datos,2,Datos y Analítica,3,Básica
+A010,ISI210,Estadística I,2,Matemáticas,4,Básica
+A011,ISI311,Programación II,3,Programación,4,Básica
+A012,ISI312,Estructuras de Datos,3,Programación,4,Básica
+A013,ISI313,Bases de Datos I,3,Datos y Analítica,4,Básica
+A014,ISI314,Estadística II,3,Matemáticas,3,Básica
+A015,ISI315,Arquitectura de Computadores,3,Gestión y Software,3,Básica
+A016,ISI416,Programación Web,4,Programación,5,Profesionalizante
+A017,ISI417,Bases de Datos II,4,Datos y Analítica,4,Profesionalizante
+A018,ISI418,Sistemas Operativos,4,Infraestructura,4,Profesionalizante
+A019,ISI419,Redes I,4,Infraestructura,3,Profesionalizante
+A020,ISI420,Investigación Operativa,4,Matemáticas,4,Profesionalizante
+A021,ISI521,Ingeniería de Software I,5,Gestión y Software,4,Profesionalizante
+A022,ISI522,Redes II,5,Infraestructura,4,Profesionalizante
+A023,ISI523,Administración de Bases de Datos,5,Datos y Analítica,3,Profesionalizante
+A024,ISI524,Gestión de Procesos,5,Gestión y Software,5,Profesionalizante
+A025,ISI525,Analítica Descriptiva,5,Datos y Analítica,3,Profesionalizante
+A026,ISI626,Ingeniería de Software II,6,Gestión y Software,3,Profesionalizante
+A027,ISI627,Infraestructura de TI,6,Infraestructura,3,Profesionalizante
+A028,ISI628,Seguridad de la Información,6,Infraestructura,5,Profesionalizante
+A029,ISI629,Arquitectura Empresarial,6,Gestión y Software,5,Profesionalizante
+A030,ISI630,Investigación Aplicada,6,Gestión y Software,4,Profesionalizante
+A031,ISI731,Inteligencia de Negocios,7,Datos y Analítica,4,Profesionalizante
+A032,ISI732,Minería de Datos,7,Datos y Analítica,4,Profesionalizante
+A033,ISI733,Gestión de Proyectos TI,7,Gestión y Software,5,Profesionalizante
+A034,ISI734,Calidad de Software,7,Gestión y Software,4,Profesionalizante
+A035,ISI735,Integración de Sistemas,7,Gestión y Software,5,Profesionalizante
+A036,ISI836,Analítica Avanzada,8,Datos y Analítica,4,Profesionalizante
+A037,ISI837,Gobierno de Datos,8,Datos y Analítica,4,Profesionalizante
+A038,ISI838,Sistemas Empresariales,8,Gestión y Software,3,Profesionalizante
+A039,ISI839,Auditoría de Sistemas,8,Gestión y Software,4,Profesionalizante
+A040,ISI840,Cloud Computing,8,Infraestructura,4,Profesionalizante
+A041,ISI941,Transformación Digital,9,Gestión y Software,4,Profesionalizante
+A042,ISI942,Gestión Estratégica de TI,9,Gestión y Software,5,Profesionalizante
+A043,ISI943,Visualización de Datos,9,Datos y Analítica,4,Profesionalizante
+A044,ISI944,Emprendimiento Tecnológico,9,Gestión y Software,5,Profesionalizante
+A045,ISI945,Optativa Profesional I,9,Gestión y Software,4,Profesionalizante
+A046,ISI1046,Proyecto Integrador,10,Gestión y Software,3,Profesionalizante
+A047,ISI1047,Ética Profesional,10,Gestión y Software,5,Profesionalizante
+A048,ISI1048,Gestión de Servicios TI,10,Gestión y Software,5,Profesionalizante
+A049,ISI1049,Optativa Profesional II,10,Gestión y Software,5,Profesionalizante
+A050,ISI1050,Seminario de Titulación,10,Gestión y Software,3,Profesionalizante

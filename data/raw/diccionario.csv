@@ -1,0 +1,45 @@
+﻿tabla,campo,tipo,descripcion
+periodos,periodo_id,Texto,Identificador del período.
+periodos,fecha_inicio,Fecha,Inicio.
+periodos,fecha_fin,Fecha,Fin.
+periodos,anio,Entero,Año.
+periodos,termino,Entero,Término dentro del año.
+asignaturas,asignatura_id,Texto,Identificador.
+asignaturas,codigo,Texto,Código curricular.
+asignaturas,nombre,Texto,Nombre.
+asignaturas,semestre,Entero,Nivel sugerido.
+asignaturas,area,Texto,Área académica.
+asignaturas,creditos,Entero,Créditos.
+asignaturas,tipo,Texto,Tipo curricular.
+docentes,docente_id,Texto,Identificador anonimizado.
+docentes,categoria_docente,Texto,Categoría.
+docentes,dedicacion,Texto,Dedicación.
+docentes,experiencia_anios,Entero,Años aproximados de experiencia.
+estudiantes,estudiante_id,Texto,Identificador anonimizado.
+estudiantes,cohorte_ingreso,Texto,Período de ingreso.
+estudiantes,provincia_origen,Texto,Provincia de procedencia.
+estudiantes,modalidad_ingreso,Texto,Modalidad de ingreso/reingreso.
+estudiantes,jornada_preferida,Texto,Jornada preferida.
+oferta,oferta_id,Texto,Identificador de la sección.
+oferta,periodo_id,Texto,Período.
+oferta,asignatura_id,Texto,Asignatura.
+oferta,docente_id,Texto,Docente.
+oferta,paralelo,Texto,Código del paralelo.
+oferta,jornada,Texto,Jornada.
+oferta,cupo,Entero,Cupo planificado.
+matriculas,matricula_id,Texto,Identificador de matrícula por asignatura.
+matriculas,estudiante_id,Texto,Estudiante.
+matriculas,oferta_id,Texto,Sección.
+matriculas,fecha_matricula,Fecha,Fecha de matrícula.
+matriculas,intento,Entero,Número de intento.
+matriculas,estado_matricula,Texto,Estado administrativo.
+calificaciones,matricula_id,Texto,Matrícula asociada.
+calificaciones,nota_primer_parcial,Decimal,Nota del primer parcial sobre 20.
+calificaciones,nota_segundo_parcial,Decimal,Nota del segundo parcial sobre 20.
+calificaciones,nota_examen_final,Decimal,Nota del examen final sobre 20.
+calificaciones,nota_final,Decimal,Nota final sobre 20.
+calificaciones,estado_academico,Texto,Resultado académico.
+asistencia,matricula_id,Texto,Matrícula asociada.
+asistencia,asistencia_pct,Decimal,Porcentaje de asistencia.
+asistencia,faltas,Entero,Número estimado de faltas.
+asistencia,atrasos,Entero,Número de atrasos.
