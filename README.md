@@ -61,23 +61,7 @@ La plataforma opera bajo una arquitectura modular desacoplada que garantiza traz
 
 * **Nivel de Granularidad:** Atómica, definida como **una fila por cada inscripción individual de un estudiante en un paralelo y período lectivo específico (`matricula_id`)**.
 * **Justificación:** Preserva el historial íntegro de intentos de repitencia (1er intento vs. 2da y 3ra matrícula), notas parciales y control de asistencia sin la pérdida de resolución que provocan las agregaciones prematuras.
-                  ┌───────────────────┐
-                  │    Dim_Periodo    │
-                  └─────────┬─────────┘
-                            │ 1
-                            │ *
-┌───────────────────┐ 1       * ┌───────────────────┐ *       1 ┌───────────────────┐
-│  Dim_Asignatura   ├───────────┤    Dim_Oferta     ├───────────┤    Dim_Docente    │
-└───────────────────┘           └─────────┬─────────┘           └───────────────────┘
-│ 1
-│ *
-┌───────────────────┐ 1                 * │
-│  Dim_Estudiante   ├─────────────────────┼─────────┐
-└───────────────────┘                     │         │
-│ *       │
-┌─────────┴─────────┴─────────┐
-│ Fact_Rendimiento_Academico  │
-└─────────────────────────────┘
+
 ---
 
 ## ⚙️ Reglas de Negocio Formalizadas
@@ -142,3 +126,54 @@ plataforma-bi-academica-uce/
 ├── requirements.txt          # Dependencias y librerías del proyecto
 ├── .gitignore                # Reglas de exclusión para control de versiones
 └── README.md                 # Documentación técnica del proyecto
+
+🚀 Instalación y Guía de Uso
+1. Clonar el repositorio
+git clone [https://github.com/Wmartinez1203/plataforma-bi-academica-uce.git](https://github.com/Wmartinez1203/plataforma-bi-academica-uce.git)
+cd plataforma-bi-academica-uce
+2. Crear y activar entorno virtual
+python -m venv venv
+# En Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
+# En Linux/Mac:
+source venv/bin/activate
+3. Instalar dependencias
+pip install -r requirements.txt
+4. Ejecutar el Pipeline ETL y Auditoría de Calidad
+python etl_pipeline.py
+Valida automáticamente los 3 controles de calidad y genera el Data Mart en data/processed/[cite: 17].
+
+5. Iniciar la Plataforma Visual (Dashboard)
+streamlit run dashboard_pro.py
+Se abrirá automáticamente en tu navegador web en http://localhost:8501 con vistas Ejecutiva, Diagnóstico y Auditoría de Capacidad[cite: 17].
+
+🔒 Gobierno de Datos y Seguridad (RBAC)
+Perfil Directivo (Decanato / Dirección): Acceso a métricas macro agregadas, tendencias y auditoría de sobrecupos con identificadores disociados mediante hash unidireccional SHA-256[cite: 17].
+
+Perfil Operativo (Bienestar Estudiantil / Tutores): Acceso a la vista de diagnóstico y matriz de alerta temprana (P1 < 7.00 o Asistencia < 75%) para asignación de tutorías bajo acuerdos de confidencialidad y registro en logs de auditoría[cite: 17].
+
+Perfil Docente: Delimitado estrictamente al seguimiento de notas y asistencia de los paralelos bajo su responsabilidad directa[cite: 17].
+
+🔄 Protocolo de Actualización Incremental
+Para incorporar futuros semestres (ej. 2026-2) sin reconstrucción manual[cite: 17]:
+
+Depositar los archivos CSV actualizados en data/raw/[cite: 17].
+
+Ejecutar python etl_pipeline.py[cite: 17].
+
+El pipeline detecta el nuevo ciclo lectivo, ejecuta los controles de consistencia y regenera el Data Mart[cite: 17].
+
+El Dashboard en Streamlit o Power BI actualiza sus selectores y gráficos en memoria mediante @st.cache_data sin requerir modificaciones en el código fuente[cite: 17].
+
+👨‍💻 Autor
+Fernando Wladimir Martínez Figueroa
+
+Estudiante / Egresado en Ingeniería en Sistemas de Información
+
+Facultad de Ingeniería y Ciencias Aplicadas (FICA)
+
+Universidad Central del Ecuador
+
+📧 Contacto: wladimirmartinez1203@gmail.com
+
+🐙 GitHub: @Wmartinez1203
