@@ -25,7 +25,7 @@ Integrando más de **15.538 hechos transaccionales** distribuidos en cinco ciclo
 ## 🏛️ Arquitectura de la Solución (4 Capas Desacopladas)
 
 La plataforma opera bajo una arquitectura modular desacoplada que garantiza trazabilidad total desde el indicador gerencial hasta la fuente original:
-
+```
 [CAPA 1: FUENTES OPERACIONALES (RAW)]
 ├── periodos.csv       (Calendarios académicos y términos)
 ├── asignaturas.csv    (Malla curricular, códigos y áreas)
@@ -57,6 +57,7 @@ La plataforma opera bajo una arquitectura modular desacoplada que garantiza traz
 
 ---
 
+```
 ## 📐 Modelo Dimensional (Esquema en Estrella / Constelación)
 
 * **Nivel de Granularidad:** Atómica, definida como **una fila por cada inscripción individual de un estudiante en un paralelo y período lectivo específico (`matricula_id`)**.
