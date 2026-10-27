@@ -102,7 +102,7 @@ El script `etl_pipeline.py` ejecuta automáticamente tres controles de consisten
 
 ## 📂 Estructura del Repositorio
 
-```text
+
 plataforma-bi-academica-uce/
 │
 ├── data/
