@@ -121,7 +121,7 @@ El script `etl_pipeline.py` ejecuta automáticamente tres controles de consisten
 
 ## 📂 Estructura del Repositorio
 
-
+```
 plataforma-bi-academica-uce/
 │
 ├── data/
@@ -145,7 +145,7 @@ plataforma-bi-academica-uce/
 ├── requirements.txt          # Dependencias y librerías del proyecto
 ├── .gitignore                # Reglas de exclusión para control de versiones
 └── README.md                 # Documentación técnica del proyecto
-
+```
 🚀 Instalación y Guía de Uso
 1. Clonar el repositorio
 git clone [https://github.com/Wmartinez1203/plataforma-bi-academica-uce.git](https://github.com/Wmartinez1203/plataforma-bi-academica-uce.git)
