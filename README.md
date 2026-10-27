@@ -62,7 +62,25 @@ La plataforma opera bajo una arquitectura modular desacoplada que garantiza traz
 
 * **Nivel de Granularidad:** Atómica, definida como **una fila por cada inscripción individual de un estudiante en un paralelo y período lectivo específico (`matricula_id`)**.
 * **Justificación:** Preserva el historial íntegro de intentos de repitencia (1er intento vs. 2da y 3ra matrícula), notas parciales y control de asistencia sin la pérdida de resolución que provocan las agregaciones prematuras.
-
+```
+                  ┌───────────────────┐
+                  │    Dim_Periodo    │
+                  └─────────┬─────────┘
+                            │ 1
+                            │ *
+┌───────────────────┐ 1       * ┌───────────────────┐ *       1 ┌───────────────────┐
+│  Dim_Asignatura   ├───────────┤    Dim_Oferta     ├───────────┤    Dim_Docente    │
+└───────────────────┘           └─────────┬─────────┘           └───────────────────┘
+│ 1
+│ *
+┌───────────────────┐ 1                 * │
+│  Dim_Estudiante   ├─────────────────────┼─────────┐
+└───────────────────┘                     │         │
+│ *       │
+┌─────────┴─────────┴─────────┐
+│ Fact_Rendimiento_Academico  │
+└─────────────────────────────┘
+```
 ---
 
 ## ⚙️ Reglas de Negocio Formalizadas
