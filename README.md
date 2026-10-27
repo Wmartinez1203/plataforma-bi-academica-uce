@@ -25,3 +25,120 @@ Integrando más de **15.538 hechos transaccionales** distribuidos en cinco ciclo
 ## 🏛️ Arquitectura de la Solución (4 Capas Desacopladas)
 
 La plataforma opera bajo una arquitectura modular desacoplada que garantiza trazabilidad total desde el indicador gerencial hasta la fuente original:
+
+[CAPA 1: FUENTES OPERACIONALES (RAW)]
+├── periodos.csv       (Calendarios académicos y términos)
+├── asignaturas.csv    (Malla curricular, códigos y áreas)
+├── docentes.csv       (Claustro, categoría y dedicación)
+├── estudiantes.csv    (Perfiles y modalidad de ingreso)
+├── oferta.csv         (Planificación de secciones y cupos)
+├── matriculas.csv     (Eventos de inscripción e intentos)
+├── calificaciones.csv (Evaluaciones sumativas: P1, P2, Examen, Final)
+└── asistencia.csv     (Control de porcentaje de presencia y faltas)
+│
+▼
+[CAPA 2: INGESTA, STAGING Y PIPELINE ETL (etl_pipeline.py)]
+├── Tipado fuerte y normalización léxica
+├── Ejecución de 3 Controles de Calidad y Conciliación
+├── Aplicación de Reglas de Negocio (exclusión de retiros, centinelas)
+└── Derivación analítica de banderas vectorizadas
+│
+▼
+[CAPA 3: ALMACÉN ANALÍTICO MULTIDIMENSIONAL (DATA MART)]
+├── Tabla de Hechos: Fact_Rendimiento_Academico (Grano: matricula_id)
+└── Dimensiones Conformadas: Dim_Estudiante, Dim_Docente, Dim_Asignatura, Dim_Periodo, Dim_Oferta
+│
+▼
+[CAPA 4: PRESENTACIÓN Y CONSUMO ANALÍTICO]
+├── Cuadro de Mando Ejecutivo (KPIs y macrotendencias temporales)
+├── Diagnóstico Académico (Dispersión bivariada y alertas tempranas)
+├── Auditoría de Capacidad de Aulas (Control de secciones en sobrecupo)
+└── Gobernanza de Datos (Control de acceso basado en roles - RBAC)
+
+---
+
+## 📐 Modelo Dimensional (Esquema en Estrella / Constelación)
+
+* **Nivel de Granularidad:** Atómica, definida como **una fila por cada inscripción individual de un estudiante en un paralelo y período lectivo específico (`matricula_id`)**.
+* **Justificación:** Preserva el historial íntegro de intentos de repitencia (1er intento vs. 2da y 3ra matrícula), notas parciales y control de asistencia sin la pérdida de resolución que provocan las agregaciones prematuras.
+                  ┌───────────────────┐
+                  │    Dim_Periodo    │
+                  └─────────┬─────────┘
+                            │ 1
+                            │ *
+┌───────────────────┐ 1       * ┌───────────────────┐ *       1 ┌───────────────────┐
+│  Dim_Asignatura   ├───────────┤    Dim_Oferta     ├───────────┤    Dim_Docente    │
+└───────────────────┘           └─────────┬─────────┘           └───────────────────┘
+│ 1
+│ *
+┌───────────────────┐ 1                 * │
+│  Dim_Estudiante   ├─────────────────────┼─────────┐
+└───────────────────┘                     │         │
+│ *       │
+┌─────────┴─────────┴─────────┐
+│ Fact_Rendimiento_Academico  │
+└─────────────────────────────┘
+---
+
+## ⚙️ Reglas de Negocio Formalizadas
+
+1. **Tratamiento de Retiros y Anulaciones:** Todo registro con estado `RETIRADO` o `ANULADO` se excluye estrictamente del denominador para la *Tasa Neta de Aprobación*, evitando castigar la efectividad docente con deserciones administrativas. Se audita de forma independiente en la *Tasa de Retiro*.
+2. **Registros sin Calificación Asentada:** Se aíslan mediante la bandera `nota_valida = False` en lugar de imputar ceros (0.00) arbitrarios que sesguen la media de rendimiento.
+3. **Tratamiento de Repeticiones:** Se preserva el número secuencial de intento (`1`, `2`, `3`) y se genera la bandera `es_repitencia`, permitiendo contrastar de forma independiente a la cohorte regular frente a quienes recursan.
+4. **Imputación de Asistencias Faltantes:** Se asigna el valor centinela `-1.00` y la bandera `asistencia_imputada = True`, excluyéndolos de los cálculos de correlación y dispersión para evitar sesgos de covarianza.
+
+---
+
+## 🛡️ Controles de Calidad y Auditoría (Conciliaciones)
+
+El script `etl_pipeline.py` ejecuta automáticamente tres controles de consistencia sobre los **15.538 hechos**[cite: 17]:
+
+| Control | Prueba Realizada | Condición Validada | Resultado Numérico | Estado |
+| :---: | :--- | :--- | :---: | :---: |
+| **Control 1** | **Integridad Referencial** | $\text{Count}(\text{calif})_{\text{huérfanas}} = 0 \land \text{Count}(\text{asist})_{\text{huérfanas}} = 0$ | **0 huérfanas** | Conforme (100% trazable) |
+| **Control 2** | **Auditoría de Aulas** | $\text{Inscritos Reales} \le \text{Cupo Planificado}$ | **145 sobrecupos** | 🚨 Alerta Operativa Crítica |
+| **Control 3** | **Consistencia Lógica** | $\text{Si Aprobado} \implies \text{Nota Final} \ge 14.00$ | **0 inconsistencias** | Conforme (Reglamento UCE) |
+
+---
+
+## 📊 Hallazgos Analíticos Clave
+
+1. **Evolución Temporal Ascendente:** La tasa de aprobación neta institucional creció de **52,74% en 2024-1 a 57,55% en 2026-1** (+4,81 puntos porcentuales), con un promedio general estable de **14,21 / 20**[cite: 17].
+2. **Concentración Crítica de Reprobación:** Cinco asignaturas concentran tasas de reprobación superiores al 68%, conformando el cuello de botella curricular[cite: 17]:
+   * `ISI101` Análisis Matemático I: **82,89%**[cite: 17]
+   * `ISI207` Programación I: **77,22%**[cite: 17]
+   * `ISI102` Fundamentos de Programación: **72,94%**[cite: 17]
+   * `ISI206` Análisis Matemático II: **72,85%**[cite: 17]
+   * `ISI311` Programación II: **68,26%**[cite: 17]
+3. **Curva Favorable de Repitencia:** La tasa de éxito asciende progresivamente según el intento: **Intento 1 (52,89%)**, **Intento 2 (61,74%)** e **Intento 3 (74,79%)**, demostrando consolidación de competencias tras recursar[cite: 17].
+4. **Asistencia vs. Calificación (Criterio Metodológico):** Coeficiente de correlación lineal de Pearson de **$r = 0,206$** (asociación positiva moderada/baja)[cite: 17]. **Fundamento:** Correlación no implica causalidad; asistir a clase acompaña el proceso pero no garantiza por sí solo el dominio de competencias abstractas[cite: 17].
+5. **Saturación Física:** **145 secciones (33,6% de la oferta)** operan por encima del cupo planificado, afectando principalmente laboratorios de software[cite: 17].
+
+---
+
+## 📂 Estructura del Repositorio
+
+```text
+plataforma-bi-academica-uce/
+│
+├── data/
+│   ├── raw/                  # Fuentes operacionales originales (8 CSVs)
+│   └── processed/            # Data Mart analítico normalizado (Tablas de Hechos y Dimensiones)
+│       ├── fact_rendimiento_academico.csv
+│       ├── dim_estudiante.csv
+│       ├── dim_docente.csv
+│       ├── dim_asignatura.csv
+│       ├── dim_periodo.csv
+│       └── dim_oferta.csv
+│
+├── docs/                     # Documentación formal de titulación
+│   ├── Informe_Ejecutivo_3_Paginas_Fernando_Martinez.docx
+│   ├── Informe_Completo_Complexivo_UCE_Fernando_Martinez.docx
+│   └── modelo_estrella_diagrama.png
+│
+├── etl_pipeline.py           # Pipeline ETL automatizado, controles de calidad y exportación
+├── exploratory_eda.py        # Script analítico de cálculo de KPIs institucionales
+├── dashboard_pro.py          # Plataforma visual interactiva (Streamlit)
+├── requirements.txt          # Dependencias y librerías del proyecto
+├── .gitignore                # Reglas de exclusión para control de versiones
+└── README.md                 # Documentación técnica del proyecto
